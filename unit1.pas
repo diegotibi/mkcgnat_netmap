@@ -33,6 +33,7 @@ type
     Ed_Public: TEdit;
     Ed_SearchPublic: TEdit;
     GroupBox1: TGroupBox;
+    Image1: TImage;
     Label1: TLabel;
     Label5: TLabel;
     Label6: TLabel;
@@ -65,6 +66,7 @@ type
     procedure Bt_SummaryClick(Sender: TObject);
     procedure Bt_SaveClick(Sender: TObject);
     procedure Ed_ProfileChange(Sender: TObject);
+    procedure Ed_ScriptChange(Sender: TObject);
     procedure Ed_SearchPrivateKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure Ed_SearchPublicKeyDown(Sender: TObject; var Key: Word;
@@ -343,7 +345,7 @@ begin
       end;
     end;
 
-    Lb_Lines.Caption := IntToStr(Ed_Script.Lines.Count) + ' linha(s)';
+    Lb_Lines.Caption := IntToStr(Ed_Script.Lines.Count) + ' linee';
   finally
     Ed_Script.Lines.EndUpdate;
   end;
@@ -370,7 +372,7 @@ begin
   Profile := Ed_Profile.Text;
 
   if Pos(',', Profile) > 0 then
-    MessageDlg('', 'Não é permitido utilizar vírgulas (",") no nome do perfil.', mtWarning, [mbOk], 0)
+    MessageDlg('', 'Non è permesso utilizzare virgole (",") nel nome del profilo.', mtWarning, [mbOk], 0)
   else begin
     WriteIniProfile(Profile);
 
@@ -424,11 +426,11 @@ begin
           if (Addr >= PrivAddr) and (Addr <= LastAddr) then begin
             Diff := Addr - PrivAddr;
 
-            Ed_Script.Lines.Add('Encontrado na regra: ' + IntToStr(nI + 1));
-            Ed_Script.Lines.Add('Endereço de rede privado da regra: ' + IntToAddress(PrivAddr) + '/' + IntToStr(Netmap.Prefix));
-            Ed_Script.Lines.Add('Diferença do host até o endereço: ' + IntToStr(Diff));
-            Ed_Script.Lines.Add('Endereço de rede público da regra: ' + Netmap.PublicNw + '/' + IntToStr(Netmap.Prefix));
-            Ed_Script.Lines.Add('Endereço público do netmap: ' + IntToAddress(Netmap.IntPublicNw + Diff));
+            Ed_Script.Lines.Add('Trovato nella regola: ' + IntToStr(nI + 1));
+            Ed_Script.Lines.Add('Regola indirizzo di rete privata: ' + IntToAddress(PrivAddr) + '/' + IntToStr(Netmap.Prefix));
+            Ed_Script.Lines.Add('Differenza da host a indirizzo: ' + IntToStr(Diff));
+            Ed_Script.Lines.Add('Regola indirizzo di rete pubblica: ' + Netmap.PublicNw + '/' + IntToStr(Netmap.Prefix));
+            Ed_Script.Lines.Add('Indirizzo pubblico netmap: ' + IntToAddress(Netmap.IntPublicNw + Diff));
           end;
 
           PrivAddr := PrivAddr + Addrs;
@@ -469,15 +471,15 @@ begin
         if (Addr >= Netmap.IntPublicNw) and (Addr <= LastAddr) then begin
           FoundRule := True;
           Diff := Addr - Netmap.IntPublicNw;
-          Ed_Script.Lines.Add('Encontrado na regra: ' + IntToStr(nI + 1));
-          Ed_Script.Lines.Add('Endereço de rede público da regra: ' + Netmap.PublicNw + '/' + IntToStr(Netmap.Prefix));
-          Ed_Script.Lines.Add('Diferença do host até o endereço: ' + IntToStr(Diff));
+          Ed_Script.Lines.Add('Trovato nella regola: ' + IntToStr(nI + 1));
+          Ed_Script.Lines.Add('Indirizzo pubblico della regola: ' + Netmap.PublicNw + '/' + IntToStr(Netmap.Prefix));
+          Ed_Script.Lines.Add('Differenza da host a indirizzo: ' + IntToStr(Diff));
 
           for dI := 1 to Netmap.Division do begin
             if (Port >= RulePort) and (Port < RulePort + PortsPerIP) then  begin
               FoundPort := True;
-              Ed_Script.Lines.Add('Endereço de rede privado da regra: ' + IntToAddress(Netmap.IntPrivateNw + ((dI-1) * Addrs)) + '/' + IntToStr(Netmap.Prefix));
-              Ed_Script.Lines.Add('Endereço privado do netmap: ' + IntToAddress(Netmap.IntPrivateNw + ((dI-1) * Addrs + Diff)));
+              Ed_Script.Lines.Add('Indirizzo privato della regola: ' + IntToAddress(Netmap.IntPrivateNw + ((dI-1) * Addrs)) + '/' + IntToStr(Netmap.Prefix));
+              Ed_Script.Lines.Add('Indirizzo privato della netmap: ' + IntToAddress(Netmap.IntPrivateNw + ((dI-1) * Addrs + Diff)));
               Break;
             end;
             RulePort := RulePort + PortsPerIP;
@@ -488,9 +490,9 @@ begin
       end;
 
       if not FoundRule then
-        Ed_Script.Lines.Add('─► Não encontrado o endereço dentro das redes públicas configuradas.');
+        Ed_Script.Lines.Add('─► Non incontrato in nessuna regola.');
       if not FoundPort then
-        Ed_Script.Lines.Add('─► Porta fora do(s) range(s) utilizado(s).');
+        Ed_Script.Lines.Add('─► Porta esterna al range utilizzato.');
     end;
   finally
     Ed_Script.Lines.EndUpdate;
@@ -540,12 +542,12 @@ begin
 
       // *** Resumo das portas
       Ed_Script.Lines.Add('');
-      Ed_Script.Lines.Add('*** Tabela das portas utilizadas no NAT ***');
+      Ed_Script.Lines.Add('*** Tabella delle porte utilizzate dal NAT ***');
       PortsPerIP := (65536-1025) div Netmap.Division;
       RulePort := 65536 - (PortsPerIP * Netmap.Division);
 
       for dI := 1 to Netmap.Division do begin
-        Ed_Script.Lines.Add(Format('Regra %d : %d -> %d', [dI, RulePort, RulePort + PortsPerIP]));
+        Ed_Script.Lines.Add(Format('Regola %d : %d -> %d', [dI, RulePort, RulePort + PortsPerIP]));
 
         PrivAddr := PrivAddr + Addrs;
         RulePort := RulePort + PortsPerIP;
@@ -569,7 +571,7 @@ begin
     if (Pos('.', ExtractFileName(FileName)) = 0) and (SaveDialog.FilterIndex = 0) then
       FileName := FileName + '.rsc';
 
-    if not FileExists(FileName) or (MessageDlg('Salvar', 'Arquivo de destino já existente. Sobreescrever?', mtWarning, [mbYes, mbNo], 0) = mrYes) then begin
+    if not FileExists(FileName) or (MessageDlg('Salve', 'File di destinazione esistente, Sovrascrivere?', mtWarning, [mbYes, mbNo], 0) = mrYes) then begin
       Ed_Script.Lines.SaveToFile(FileName);
     end;
   end;
@@ -583,6 +585,11 @@ begin
   if (IO >= 0) or (Ed_Profile.Text = '') then begin
     ReadIniProfile(Ed_Profile.Text);
   end;
+end;
+
+procedure TfrmMain.Ed_ScriptChange(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmMain.Ed_SearchPrivateKeyDown(Sender: TObject; var Key: Word;
