@@ -7,7 +7,7 @@
   <key>CFBundleExecutable</key>
   <string>cgnat_netmap</string>
   <key>CFBundleName</key>
-  <string>cgnat_netmap</string>
+  <string>CGNAT-Netmap</string>
   <key>CFBundleIdentifier</key>
   <string>com.company.cgnat_netmap</string>
   <key>CFBundleInfoDictionaryVersion</key>

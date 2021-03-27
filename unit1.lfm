@@ -1,5 +1,5 @@
 object frmMain: TfrmMain
-  Left = 584
+  Left = 373
   Height = 697
   Top = 114
   Width = 1097
@@ -11,15 +11,15 @@ object frmMain: TfrmMain
   LCLVersion = '2.0.10.0'
   object Label1: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 48
-    Width = 101
+    Width = 87
     Caption = 'Indirizzo Privato:'
     ParentColor = False
   end
   object Ed_Private: TEdit
     Left = 120
-    Height = 22
+    Height = 23
     Top = 44
     Width = 88
     TabOrder = 1
@@ -27,26 +27,26 @@ object frmMain: TfrmMain
   end
   object Label2: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 72
-    Width = 111
+    Width = 97
     Caption = 'Indirizzo Pubblico:'
     ParentColor = False
   end
   object Label3: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 96
-    Width = 53
+    Width = 44
     Caption = 'Prefisso:'
     ParentColor = False
   end
   object Ed_Prefix: TComboBox
     Left = 120
-    Height = 20
+    Height = 23
     Top = 92
     Width = 48
-    ItemHeight = 26
+    ItemHeight = 15
     ItemIndex = 5
     Items.Strings = (
       '/22'
@@ -58,6 +58,7 @@ object frmMain: TfrmMain
       '/28'
       '/29'
       '/30'
+      '/32'
     )
     Style = csDropDownList
     TabOrder = 3
@@ -65,10 +66,10 @@ object frmMain: TfrmMain
   end
   object Ed_Division: TComboBox
     Left = 120
-    Height = 20
+    Height = 23
     Top = 116
     Width = 48
-    ItemHeight = 26
+    ItemHeight = 15
     ItemIndex = 30
     Items.Strings = (
       '2'
@@ -205,9 +206,9 @@ object frmMain: TfrmMain
   end
   object Label4: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 120
-    Width = 53
+    Width = 45
     Caption = 'Divisore:'
     ParentColor = False
   end
@@ -275,7 +276,7 @@ object frmMain: TfrmMain
   end
   object Ed_Public: TEdit
     Left = 120
-    Height = 22
+    Height = 23
     Top = 68
     Width = 88
     TabOrder = 2
@@ -283,49 +284,49 @@ object frmMain: TfrmMain
   end
   object Lb_Private: TLabel
     Left = 664
-    Height = 16
+    Height = 15
     Top = 8
-    Width = 46
+    Width = 40
     Caption = 'Privato:'
     ParentColor = False
   end
   object Lb_Private2: TLabel
     Left = 680
-    Height = 16
+    Height = 15
     Top = 40
-    Width = 41
+    Width = 33
     Caption = '0.0.0.0'
     ParentColor = False
   end
   object Lb_Public: TLabel
     Left = 664
-    Height = 16
+    Height = 15
     Top = 56
-    Width = 56
+    Width = 50
     Caption = 'Pubblico:'
     ParentColor = False
   end
   object Lb_Public2: TLabel
     Left = 680
-    Height = 16
+    Height = 15
     Top = 88
-    Width = 41
+    Width = 33
     Caption = '0.0.0.0'
     ParentColor = False
   end
   object Lb_Public1: TLabel
     Left = 680
-    Height = 16
+    Height = 15
     Top = 72
-    Width = 41
+    Width = 33
     Caption = '0.0.0.0'
     ParentColor = False
   end
   object Lb_Private1: TLabel
     Left = 680
-    Height = 16
+    Height = 15
     Top = 24
-    Width = 41
+    Width = 33
     Caption = '0.0.0.0'
     ParentColor = False
   end
@@ -343,7 +344,6 @@ object frmMain: TfrmMain
     Font.Pitch = fpFixed
     Font.Quality = fqDraft
     HideSelection = False
-    Lines.Strings = (    )
     OnChange = Ed_ScriptChange
     ParentFont = False
     ReadOnly = True
@@ -362,18 +362,18 @@ object frmMain: TfrmMain
   end
   object Ed_Profile: TComboBox
     Left = 56
-    Height = 20
+    Height = 23
     Top = 4
     Width = 168
-    ItemHeight = 19
+    ItemHeight = 15
     OnChange = Ed_ProfileChange
     TabOrder = 0
   end
   object Label5: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 8
-    Width = 43
+    Width = 38
     Caption = 'Profilo:'
     ParentColor = False
   end
@@ -465,9 +465,9 @@ object frmMain: TfrmMain
   end
   object Lb_Lines: TLabel
     Left = 664
-    Height = 16
+    Height = 15
     Top = 152
-    Width = 40
+    Width = 34
     Caption = '0 linee'
     ParentColor = False
   end
@@ -478,20 +478,20 @@ object frmMain: TfrmMain
     Width = 312
     Anchors = [akTop, akRight]
     Caption = 'Calcola Netmap:'
-    ClientHeight = 62
-    ClientWidth = 302
+    ClientHeight = 61
+    ClientWidth = 308
     TabOrder = 13
     object Label6: TLabel
       Left = 8
-      Height = 16
+      Height = 15
       Top = 8
-      Width = 46
+      Width = 40
       Caption = 'Privato:'
       ParentColor = False
     end
     object Ed_SearchPrivate: TEdit
       Left = 56
-      Height = 22
+      Height = 23
       Top = 4
       Width = 96
       OnKeyDown = Ed_SearchPrivateKeyDown
@@ -508,15 +508,15 @@ object frmMain: TfrmMain
     end
     object Label7: TLabel
       Left = 8
-      Height = 16
+      Height = 15
       Top = 36
-      Width = 56
+      Width = 50
       Caption = 'Pubblico:'
       ParentColor = False
     end
     object Ed_SearchPublic: TEdit
       Left = 72
-      Height = 22
+      Height = 23
       Top = 32
       Width = 96
       OnKeyDown = Ed_SearchPublicKeyDown
@@ -533,7 +533,7 @@ object frmMain: TfrmMain
     end
     object Ed_SearchPublicPort: TEdit
       Left = 168
-      Height = 22
+      Height = 23
       Top = 32
       Width = 56
       NumbersOnly = True
@@ -553,7 +553,7 @@ object frmMain: TfrmMain
   end
   object Ed_SummaryTo: TEdit
     Left = 728
-    Height = 22
+    Height = 23
     Top = 168
     Width = 32
     NumbersOnly = True
@@ -572,10 +572,10 @@ object frmMain: TfrmMain
   end
   object Ed_IfaceRule: TComboBox
     Left = 120
-    Height = 20
+    Height = 23
     Top = 148
     Width = 112
-    ItemHeight = 26
+    ItemHeight = 15
     ItemIndex = 0
     Items.Strings = (
       'Non utilizzare'
@@ -588,23 +588,23 @@ object frmMain: TfrmMain
   end
   object Label8: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 152
-    Width = 96
+    Width = 83
     Caption = 'Regola di interf:'
     ParentColor = False
   end
   object Label9: TLabel
     Left = 8
-    Height = 16
+    Height = 15
     Top = 176
-    Width = 68
+    Width = 58
     Caption = 'Interfaccia:'
     ParentColor = False
   end
   object Ed_IfaceValue: TEdit
     Left = 120
-    Height = 22
+    Height = 23
     Top = 172
     Width = 112
     TabOrder = 10

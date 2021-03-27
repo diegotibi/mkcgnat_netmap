@@ -88,7 +88,7 @@ type
   end;
 
 const
-  CPrefix: array[0..8] of Integer = (22, 23, 24, 25, 26, 27, 28, 29, 30);
+  CPrefix: array[0..9] of Integer = (22, 23, 24, 25, 26, 27, 28, 29, 30, 32);
 
 var
   frmMain: TfrmMain;
